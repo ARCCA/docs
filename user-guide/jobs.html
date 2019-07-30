@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running jobs &mdash; GW4-Isambard  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Phase 1" href="phase1.html" />
+    <link rel="prev" title="Filesystem" href="filesystem.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> GW4-Isambard
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Isambard User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requestaccount.html">Request Account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connecting.html">Connecting to Isambard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Running jobs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#limits">Limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#queue-configuration">Queue configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-job">Batch job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-job">Interactive job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#specifying-resources">Specifying resources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phase1.html">Phase 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phase2.html">Phase 2 - XC50 ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="end_project.html">End of life procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Getting Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tools/ddt.html">Arm DDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/gdb4hpc.html">gdb4hpc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/map.html">Arm MAP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/perftools.html">Cray perftools (CrayPAT)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/castep.html">CASTEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/cp2k.html">CP2K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/gromacs.html">GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/hydro3d.html">Hydro3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/molpro.html">MolPro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/namd.html">NAMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/nemo.html">NEMO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/openfoam.html">OpenFOAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/opensbli.html">OpenSBLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/um.html">Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/vasp.html">VASP</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Service Policies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../policies/terms.html">Terms and Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../policies/privacy.html">Privacy Statement</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW4-Isambard</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Running jobs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/gw4-isambard/docs/blob/master/user-guide/jobs.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-jobs">
+<h1>Running jobs<a class="headerlink" href="#running-jobs" title="Permalink to this headline">¶</a></h1>
+<p>Isambard uses the PBS Pro scheduler to manage compute resources. Phase 1 uses <a class="reference external" href="http://www.pbsworks.com/pdfs/PBSProUserGuide13.1.pdf">PBS Pro 13.1</a> &amp; Phase 2 uses <a class="reference external" href="https://www.pbsworks.com/pdfs/PBSUserGuide18.2.pdf">PBS Pro 18.2</a>.</p>
+<p>Phase 1 and Phase 2 use separate schedulers, jobs must be submitted from the login nodes for the relevant system.</p>
+<div class="section" id="limits">
+<h2>Limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h2>
+<p>Users can submit any number of jobs but only two jobs per-user per-queue will run at the same time.</p>
+</div>
+<div class="section" id="queue-configuration">
+<h2>Queue configuration<a class="headerlink" href="#queue-configuration" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>arm     - Run on 164x Thunder X2 XC50 compute nodes</li>
+<li>arm-dev - Run interatively on up to 4x Thunder X2 XC50 compute nodes</li>
+<li>knlq    - Run on 8x Intel Xeon Phi “Knights Landing” 7210 CPU nodes</li>
+<li>pascalq - Run on 4x dual-card Nvidia Tesla P100 “Pascal” GPU nodes</li>
+<li>powerq  - Run on 2x IBM Power 9 nodes, each with dual-card Nvidia V100 “Volta” GPUs ← <code class="docutils literal notranslate"><span class="pre">Queue</span> <span class="pre">unavailable,</span> <span class="pre">interactive</span> <span class="pre">use</span> <span class="pre">only,</span> <span class="pre">hosts:</span> <span class="pre">power-001,</span> <span class="pre">power-002</span></code></li>
+</ul>
+<p>knlq is split into two sets of MCDRAM configuration, nodes 001-004 are in cache memory mode (quad_0) and nodes 005-008 are in flat memory mode (quad_100). These modes can be targeted using the <code class="docutils literal notranslate"><span class="pre">aoe=</span></code> PBS attribute.</p>
+<p>To see the available queues and their current state:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qstat -q
+</pre></div>
+</div>
+</div>
+<div class="section" id="batch-job">
+<h2>Batch job<a class="headerlink" href="#batch-job" title="Permalink to this headline">¶</a></h2>
+<p>Phase 1 example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#PBS -q pascalq</span>
+<span class="c1">#PBS -l select=2</span>
+<span class="c1">#PBS -l walltime=00:01:00</span>
+
+module load intel-parallel-studio-xe/compilers/64
+mpirun hostname
+</pre></div>
+</div>
+<p>Phase 2 XC50 example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#PBS -q arm</span>
+<span class="c1">#PBS -l select=2</span>
+<span class="c1">#PBS -l walltime=00:01:00</span>
+
+aprun -n <span class="m">32</span> hostname
+</pre></div>
+</div>
+</div>
+<div class="section" id="interactive-job">
+<h2>Interactive job<a class="headerlink" href="#interactive-job" title="Permalink to this headline">¶</a></h2>
+<p>Passing the <code class="docutils literal notranslate"><span class="pre">-I</span></code> flag to <code class="docutils literal notranslate"><span class="pre">qsub</span></code> allows a compute node to be used interactively.</p>
+<p>For example, to request an interactive job on one of the Pascal nodes utilizing 1 GPU and 16 of the 36 available Broadwell CPU cores, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qsub -I -q pascalq -l <span class="k">select</span><span class="o">=</span><span class="m">1</span>:ncpus<span class="o">=</span><span class="m">16</span>:ngpus<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>For XCI (Phase 2), compilations can be run on the login nodes <code class="docutils literal notranslate"><span class="pre">xcil00</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">xcil01</span></code>. Small development jobs can be run in the interactive queue <code class="docutils literal notranslate"><span class="pre">arm-dev</span></code>.</p>
+</div>
+<div class="section" id="specifying-resources">
+<h2>Specifying resources<a class="headerlink" href="#specifying-resources" title="Permalink to this headline">¶</a></h2>
+<p>To avoid blocking resources which aren’t being used by your job, it is important to specify the correct amount of resources in your job script.</p>
+<p>For example, this command declares that your job will run on a single node and will use one of the two available GPUs. The omission of the <cite>ncpus</cite> attribute causes it to default to <cite>1</cite>, meaning other jobs can enter the system to use any of the remaining 35 Broadwell CPU cores and the unused GPU.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qsub -I -q pascalq -l <span class="k">select</span><span class="o">=</span><span class="m">1</span>:ngpus<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>If you request <cite>ngpus=2</cite>, then any subsequently submitted job requesting a GPU will not run on the same node until a node is freed. Similarly setting <cite>ncpus=36</cite> will block any jobs from running.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="phase1.html" class="btn btn-neutral float-right" title="Phase 1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="filesystem.html" class="btn btn-neutral float-left" title="Filesystem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, GW4
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Phase 1 &mdash; GW4-Isambard  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Phase 2 - XC50 ARM" href="phase2.html" />
+    <link rel="prev" title="Running jobs" href="jobs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> GW4-Isambard
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Isambard User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requestaccount.html">Request Account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connecting.html">Connecting to Isambard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filesystem.html">Filesystem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jobs.html">Running jobs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Phase 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#intel-knl">Intel KNL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nvidia-pascal">Nvidia “Pascal”</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#load-cuda-toolkit-on-pascal">Load CUDA Toolkit on Pascal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ibm-power-9">IBM Power 9</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware">Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#software">Software</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="phase2.html">Phase 2 - XC50 ARM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="end_project.html">End of life procedures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Getting Support</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development Tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tools/ddt.html">Arm DDT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/gdb4hpc.html">gdb4hpc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/map.html">Arm MAP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tools/perftools.html">Cray perftools (CrayPAT)</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Applications</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../applications/castep.html">CASTEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/cp2k.html">CP2K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/gromacs.html">GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/hydro3d.html">Hydro3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/molpro.html">MolPro</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/namd.html">NAMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/nemo.html">NEMO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/openfoam.html">OpenFOAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/opensbli.html">OpenSBLI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/um.html">Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../applications/vasp.html">VASP</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Service Policies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../policies/terms.html">Terms and Conditions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../policies/privacy.html">Privacy Statement</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW4-Isambard</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Phase 1</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/gw4-isambard/docs/blob/master/user-guide/phase1.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="phase-1">
+<h1>Phase 1<a class="headerlink" href="#phase-1" title="Permalink to this headline">¶</a></h1>
+<p>The first phase of the Isambard system hosts many nodes of different architectures:</p>
+<ul class="simple">
+<li>2x Login nodes with Intel Xeon CPU</li>
+<li>4x GPU nodes with 2x Nvidia P100 “Pascal” GPUs and Intel Xeon E5-2695 v4 “Broadwell” CPU</li>
+<li>8x Intel Xeon Phi with “Knights Landing” 7210 CPU</li>
+<li>2x IBM Power 9 nodes</li>
+<li><ul class="first">
+<li>Including 2x Nvidia V100 “Volta” GPU with NVLink</li>
+</ul>
+</li>
+</ul>
+<p>Login, Pascal &amp; KNL nodes run Red Hat Enterprise Linux 7.3 with Cray software stacks.</p>
+<p>Power 9 nodes run Red Hat Enterprise Linux for Little-Endian 7.5 with IBM C/C++/Fortran compilers &amp; IBM Power AI.</p>
+<p>All nodes are connected via 100 Gigabit EDR Infiniband. The login nodes are connected to the Internet via a 10 Gigabit link to the <a class="reference external" href="https://www.jisc.ac.uk/janet">Janet Network</a>.</p>
+<div class="section" id="intel-knl">
+<h2>Intel KNL<a class="headerlink" href="#intel-knl" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://ark.intel.com/products/94033/Intel-Xeon-Phi-Processor-7210-16GB-1_30-GHz-64-core">Intel Xeon Phi “Knights Landing” 7210 CPU</a> &#64; 1.30GHz (1.50GHz Turbo) with AVX-512.</p>
+<p>Jobs submitted via the <code class="docutils literal notranslate"><span class="pre">knlq</span></code> queue.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Software</th>
+<th class="head">Module (<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">..</span></code>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Intel Parallel Studio XE</td>
+<td>intel-parallel-studio-xe/mpi</td>
+</tr>
+<tr class="row-odd"><td>Intel Math Kernel Library</td>
+<td>intel/mkl</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="nvidia-pascal">
+<h2>Nvidia “Pascal”<a class="headerlink" href="#nvidia-pascal" title="Permalink to this headline">¶</a></h2>
+<p>Isambard hosts two generations of Nvidia <a class="reference external" href="https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units">General-Purpose GPUs</a>: <a class="reference external" href="https://www.nvidia.com/en-us/data-center/pascal-gpu-architecture/">P100 “Pascal”</a> and <a class="reference external" href="https://www.nvidia.com/en-us/data-center/volta-gpu-architecture/">V100 “Volta”</a>.</p>
+<ul class="simple">
+<li>Pascal nodes are available via the <code class="docutils literal notranslate"><span class="pre">pascalq</span></code> queue.</li>
+<li>Volta GPUs are a component of the <a class="reference internal" href="#ibm-power-9">IBM Power 9</a> nodes</li>
+</ul>
+<p>Jobs submitted via the <code class="docutils literal notranslate"><span class="pre">pascalq</span></code> queue.</p>
+<div class="section" id="load-cuda-toolkit-on-pascal">
+<h3>Load CUDA Toolkit on Pascal<a class="headerlink" href="#load-cuda-toolkit-on-pascal" title="Permalink to this headline">¶</a></h3>
+<p>To load the default version of CUDA run:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">cudatoolkit</span></code></div></blockquote>
+<p>Specific versions can be found with:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">avail</span> <span class="pre">cudatoolkit</span></code></div></blockquote>
+<p>Although the version loaded must match the current Nvidia driver version, this can be determined by running:</p>
+<blockquote>
+<div><code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code></div></blockquote>
+<p>The version can be found on the first line of output.</p>
+</div>
+</div>
+<div class="section" id="ibm-power-9">
+<h2>IBM Power 9<a class="headerlink" href="#ibm-power-9" title="Permalink to this headline">¶</a></h2>
+<p>Isambard’s Power nodes comprise two of <a class="reference external" href="https://www.ibm.com/uk-en/marketplace/power-systems-ac922">IBM Power System AC922</a> , they are representative of the type of node used in large-scale HPC. Each node has the IBM XL C/C++ (<code class="docutils literal notranslate"><span class="pre">xlc</span></code>) &amp; IBM XL Fortran (<code class="docutils literal notranslate"><span class="pre">xlf</span></code>) compilers installed. To make full use of each node’s two Nvidia V100 “Volta” GPUs we have installed the <a class="reference external" href="https://developer.ibm.com/linuxonpower/deep-learning-powerai/">IBM PowerAI</a> stack for Machine Learning research.</p>
+<p>The nodes are available interactively via SSH:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ssh power-001
+ssh power-002
+</pre></div>
+</div>
+<div class="section" id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h3>
+<p>There are two nodes, power-001 &amp; power-002 - Each with two sockets of Power 9 CPU. Each socket is attached to an Nvidia V100 GPU via NVLink at aprox. 150GB/s with coherent memory access to the 280GB of system memory. There is an X-Bus link between the two GPUs.</p>
+<p>External documentation: <a class="reference external" href="https://www.redbooks.ibm.com/redpapers/pdfs/redp5472.pdf">IBM Power System AC922 Technical Overview - IBM Redbooks</a></p>
+</div>
+<div class="section" id="software">
+<h3>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h3>
+<p>These nodes use Red Hat Enterprise Linux for Little-Endian 7.5 and have access to Red Hat’s software repositories.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Package</th>
+<th class="head">Source</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>anaconda2</td>
+<td>source /opt/anaconda2/latest/bin/activate</td>
+</tr>
+<tr class="row-odd"><td>anaconda3</td>
+<td>source /opt/anaconda3/latest/bin/activate</td>
+</tr>
+<tr class="row-even"><td>devtoolset-7</td>
+<td>source /opt/rh/devtoolset-7/enable</td>
+</tr>
+<tr class="row-odd"><td>rh-python36</td>
+<td>source /opt/rh/rh-python36/enable</td>
+</tr>
+<tr class="row-even"><td>rh-ruby25</td>
+<td>source /opt/rh/rh-ruby25/enable</td>
+</tr>
+<tr class="row-odd"><td>rh-nodejs8</td>
+<td>source /opt/rh/rh-nodejs8/enable</td>
+</tr>
+</tbody>
+</table>
+<p>Power AI frameworks found under <code class="docutils literal notranslate"><span class="pre">/opt/DL</span></code>, add them to your environment by running <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">/opt/DL/&lt;framework&gt;/bin/&lt;framework&gt;-activate</span></code> unless stated in the right-column:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Framework</th>
+<th class="head">Source</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>bazel</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>caffe</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>caffe-bvlc</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>caffe-ibm</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>cudnn</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ddl</td>
+<td>source /opt/DL/ddl/bin/ddl-pack-activate</td>
+</tr>
+<tr class="row-even"><td>ddl-tensorflow</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>hdf5</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>mldl-spectrum</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>nccl2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>openblas</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>protobuf</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>pytorch</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>snap-ml-local</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>snap-ml-mpi</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>tensorboard</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>tensorflow</td>
+<td>depends on anaconda</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="phase2.html" class="btn btn-neutral float-right" title="Phase 2 - XC50 ARM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="jobs.html" class="btn btn-neutral float-left" title="Running jobs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, GW4
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
