@@ -214,13 +214,15 @@ Now when we connect to the service:
 
   ssh [userID]@<hpc-service>
 
-    | More features of config
-    |
-    | You can also use the ssh config to specify many more features of your connection e.g. if you have different usernames on different systems:
-    |
-    | ``Host service``
-    | ``IdentityFile id_ed25519_service``
-    | ``User userid_service``
+You should now be on the system.
+
+  | More features of config
+  |
+  | You can also use the ssh config to specify many more features of your connection e.g. if you have different usernames on different systems:
+  |
+  | ``Host service``
+  | ``IdentityFile id_ed25519_service``
+  | ``User userid_service``
 
 Enabling the SSH Agent
 ----------------------
