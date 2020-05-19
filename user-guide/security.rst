@@ -212,7 +212,7 @@ Now when we connect to the service:
 
 .. code-block:: text
 
-  ssh [userID]@<hpc-service>
+ssh [userID]@<hpc-service>
 
 
   | More features of config
