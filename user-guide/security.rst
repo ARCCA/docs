@@ -245,9 +245,9 @@ It is also a completely unnecessary risk as you can enable an SSH Agent on your 
   | Agent pid 123
   |
   | and now you can confirm it is running with:
-  |
-  | ``echo $SSH_AGENT_PID``
-  | ``123``
+  | ::
+  | echo $SSH_AGENT_PID
+  | 123
 
   | Agent lifetime
   |
