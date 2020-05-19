@@ -86,9 +86,9 @@ On local, HPC systems you may be able to use your standard institutional credent
 
 When you log into a new service for the first time you will likely be asked to change your password. If you are not, you should change it at first log-in with the command passwd. Once you have logged in or run the command, the password change sequence is:
 
-  1. Enter your current password:
-  2. Enter a new strong password
-  3. Re-enter the same new password.
+1. Enter your current password:
+2. Enter a new strong password
+3. Re-enter the same new password.
 
 There may be a forced password policy to help ensure that you are using a strong password.
 
@@ -123,9 +123,10 @@ An alternative encryption method and the one we recommend you to use are based o
   ssh-keygen -o -a 100 -t ed25519
 
 ``ssh-keygen`` is the command to generate the key pair
-``-o`` specifies to use a strong format to save the key
-``-a 100`` increases the strength of encryption with your passphrase
-``-t ed25519`` specifies the encryption method used
+
+-o           specifies to use a strong format to save the key
+-a 100       increases the strength of encryption with your passphrase
+-t ed25519   specifies the encryption method used
 
 When you create a SSH key pair you will be prompted to provide a passphrase. This is effectively password for your private key and like a password should be kept secret. Now when you try to use the key, you should be asked for your key pair passphase (which you entered when you created the key pair) rather than your remote machine password.
 
@@ -138,6 +139,7 @@ On systems running older version of ssh you may not be able to use the EdDSA enc
 .. code-block:: text
 
   ssh-keygen -o -a 100 -t rsa -b 4096
+
 
   | Private keys are private
   |
@@ -212,6 +214,7 @@ Now when we connect to the service:
 
   ssh [userID]@<hpc-service>
 
+
   | More features of config
   |
   | You can also use the ssh config to specify many more features of your connection e.g. if you have different usernames on different systems:
@@ -234,9 +237,10 @@ It is also a completely unnecessary risk as you can enable an SSH Agent on your 
   | ``echo $SSH_AGENT_PID``
   |
   | If the output is empty then it isn't running. It can be launched with:
-  |
-  | ``eval \`ssh-agent\```
-  | ``Agent pid 123``
+  | 
+  | .. code-block:: text
+  | eval \`ssh-agent\`
+  | Agent pid 123
   |
   | and now you can confirm it is running with:
   |
