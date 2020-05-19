@@ -27,11 +27,13 @@ macOS users can use the Terminal application, located in the Utilities folder wi
 You can use the following command from the terminal window to login into an HPC service:
 
 .. code-block:: text
+
   ssh [userID]@<hpc-service>
 
 To allow remote programs, especially graphical applications to control your local display, such as being able to open up a new GUI window (such as for a debugger), use:
 
 .. code-block:: text
+
   ssh -X [userID]@<hpc-service>
 
 Some sites recommend using the -Y flag. While this can fix some compatibility issues, the -X flag is more secure.
@@ -74,6 +76,7 @@ Interactive access
 To log into your HPC service you should replace the [userID] and address provided:
 
 .. code-block:: text
+
   ssh [userID]@<hpc-service>
 
 Initial passwords
@@ -116,6 +119,7 @@ Public key encryption uses fancy maths to enable secure communication over an op
 An alternative encryption method and the one we recommend you to use are based on EdDSA (Ed25519). For our purposes the key pair works in the same way. Your public key can go on the remote resource or service and the private key is kept protected on your local machine. You can generate a key pair with:
 
 .. code-block:: text
+
   ssh-keygen -o -a 100 -t ed25519
 
 ``ssh-keygen`` is the command to generate the key pair
@@ -132,6 +136,7 @@ When you create a SSH key pair you will be prompted to provide a passphrase. Thi
 On systems running older version of ssh you may not be able to use the EdDSA encryption. In this case you should use:
 
 .. code-block:: text
+
   ssh-keygen -o -a 100 -t rsa -b 4096
 
 | Private keys are private
@@ -150,11 +155,13 @@ When you create the key pair two files will be generated, a private key e.g. ``i
 Using you normal login password, add the public part of your key pair to the authorized_keys file on the remote host to which you wish to connect. We can use the utility ``ssh_copy_id`` to do this:
 
 .. code-block:: text
+
   ssh_copy_id -i ~/.ssh/id_ed25519.pub [userID]@<hpc-service>
 
 Now you can test that your key pair is working correctly by attempting to connect to the remote host and run a command. You should be asked for your key pair passphase (which you entered when you created the key pair) rather than your remote machine password.
 
 .. code-block:: text
+
   ssh [userID]@<hpc-service> 'date'
   Enter passphrase for key '/Home/user/.ssh/id_rsa': [Passphrase]
   Wed May  8 10:36:48 BST 2020
@@ -183,22 +190,26 @@ Key pairs for multiple services
 So far we have generated a single key with a default name for one service. Using strong keys means that the key should secure but what happens if the key is compromised? An intruder can now access all systems on which we use this key. Therefore it is good practice to use a different key for each service you use. In order to do this you need to specify the name of key file:
 
 .. code-block:: text
+
   ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519_service
 
 Before when we connected to the remote machine ``ssh`` automatically tried default keys it found in ``~/.ssh``. We can specify that we wish to use a specific key with:
 
 .. code-block:: text
+
   ssh -i ~/.ssh/id_ed25519_service [userID]@<hpc-service>
 
 However we now have an issue that we need to remember and specify the key we want to use for each service and typeout a longer command each time we want to connect to remote machines. We can simplify this by adding the Host, and key file to our ssh config. Edit ``~/.ssh/config`` and add/include:
 
 .. code-block:: text
+
   Host <hpc-service>
   IdentityFile ~/.ssh/id_ed25519_service
 
 Now when we connect to the service:
 
 .. code-block:: text
+
   ssh [userID]@<hpc-service>
 
 | More features of config
@@ -248,6 +259,7 @@ Adding your key to the agent
 To add the private part of your key pair to the SSH Agent, use the ssh-add command (on your local machine). To add the key for one hour we inculde the flag and parameter -t 3600, you will need to enter your passphrase one more time:
 
 .. code-block:: text
+
   ssh-add -t 3600 ~/.ssh/id_ed25519-service
   Enter passphrase for home/user/.ssh/id_ed25519_service: [Passphrase]
   Identity added: home/user/.ssh/id_ed25519_service (home/user/.ssh/id_ed25519_service)
@@ -256,6 +268,7 @@ To add the private part of your key pair to the SSH Agent, use the ssh-add comma
 Now you can test that you can access the remote host without needing to enter your passphrase:
 
 .. code-block:: text
+
   ssh [userID]@<hpc-service> 'date'
   Wed May  8 10:42:56 BST 2020
 
