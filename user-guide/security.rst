@@ -92,20 +92,22 @@ There may be a forced password policy to help ensure that you are using a strong
 N.B. You may be logged out and can now log back in with your new password.
 
 You may now change your password on the machine itself using the passwd command. If you forget your password, you should contact your system administrator/helpdesk.
-Strong Passwords
 
-A strong password describes a password that is difficult to detect by both humans and computer programs, effectively protecting data from unauthorized access. A strong password consists of at least twelve characters (and the more characters, the stronger the password) that are a combination of letters, numbers and symbols (@, #, $, %, etc.) if allowed. Passwords are typically case-sensitive, so a strong password contains letters in both uppercase and lowercase. Strong passwords also do not contain words that can be found in a dictionary or parts of the user's own name.
+  | Strong Passwords
+  | 
+  | A strong password describes a password that is difficult to detect by both humans and computer programs, effectively protecting data from unauthorized access. A strong password consists of at least twelve characters (and the more characters, the stronger the password) that are a combination of letters, numbers and symbols (@, #, $, %, etc.) if allowed. Passwords are typically case-sensitive, so a strong password contains letters in both uppercase and lowercase. Strong passwords also do not contain words that can be found in a dictionary or parts of the user's own name.
+  |
+  | Based on https://www.webopedia.com/TERM/S/strong_password.html
 
-Based on https://www.webopedia.com/TERM/S/strong_password.html
-
-What is a public key pair?
-
-A public key pair consists of two parts, a public part and a private part which are related. One is used to lock the message the other is used to unlock the message:
-
-    The public part is used to lock (encrypt) the message so that it can be sent over the internet and can be shared.
-    The private part is used to unlock (decrpyt) the message and should not be shared.
+  | What is a public key pair?
+  |
+  | A public key pair consists of two parts, a public part and a private part which are related. One is used to lock the message the other is used to unlock the message:
+  | 
+  |  * The public part is used to lock (encrypt) the message so that it can be sent over the internet and can be shared.
+  |  * The private part is used to unlock (decrpyt) the message and should not be shared.
 
 Set up an SSH key pair protected by a passphrase
+------------------------------------------------
 
 Some systems will also/instead require you to set up an SSH key pair to access the services. The SSH key pair consists of a private part and a public part. The public key can be put on remote machines to allow you to log-in without the use of a password. You keep the private part of the key secure on your local machine protected with a passphrase.
 
@@ -113,12 +115,13 @@ Public key encryption uses fancy maths to enable secure communication over an op
 
 An alternative encryption method and the one we recommend you to use are based on EdDSA (Ed25519). For our purposes the key pair works in the same way. Your public key can go on the remote resource or service and the private key is kept protected on your local machine. You can generate a key pair with:
 
-ssh-keygen -o -a 100 -t ed25519
+.. code-block:: text
+  ssh-keygen -o -a 100 -t ed25519
 
-    ssh-keygen is the command to generate the key pair
-    -o specifies to use a strong format to save the key
-    -a 100 increases the strength of encryption with your passphrase
-    -t ed25519 specifies the encryption method used
+    ``ssh-keygen`` is the command to generate the key pair
+    ``-o`` specifies to use a strong format to save the key
+    ``-a 100`` increases the strength of encryption with your passphrase
+    ``-t ed25519`` specifies the encryption method used
 
 When you create a SSH key pair you will be prompted to provide a passphrase. This is effectively password for your private key and like a password should be kept secret. Now when you try to use the key, you should be asked for your key pair passphase (which you entered when you created the key pair) rather than your remote machine password.
 Use passphrases
