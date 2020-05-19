@@ -118,149 +118,169 @@ An alternative encryption method and the one we recommend you to use are based o
 .. code-block:: text
   ssh-keygen -o -a 100 -t ed25519
 
-    ``ssh-keygen`` is the command to generate the key pair
-    ``-o`` specifies to use a strong format to save the key
-    ``-a 100`` increases the strength of encryption with your passphrase
-    ``-t ed25519`` specifies the encryption method used
+``ssh-keygen`` is the command to generate the key pair
+``-o`` specifies to use a strong format to save the key
+``-a 100`` increases the strength of encryption with your passphrase
+``-t ed25519`` specifies the encryption method used
 
 When you create a SSH key pair you will be prompted to provide a passphrase. This is effectively password for your private key and like a password should be kept secret. Now when you try to use the key, you should be asked for your key pair passphase (which you entered when you created the key pair) rather than your remote machine password.
-Use passphrases
 
-If you do not use a passphrase then if someone gets hold of your private key they will be able to use your key to log in on any machine where you use that key.
+| Use passphrases
+|
+| If you do not use a passphrase then if someone gets hold of your private key they will be able to use your key to log in on any machine | where you use that key.
 
 On systems running older version of ssh you may not be able to use the EdDSA encryption. In this case you should use:
 
-ssh-keygen -o -a 100 -t rsa -b 4096
+.. code-block:: text
+  ssh-keygen -o -a 100 -t rsa -b 4096
 
-Private keys are private
+| Private keys are private
+|
+| While it is necessary to share you public key in order to use public key encryption, the private key should never be shared or stored on remote services even though it is protected with a passphrase.
 
-While it is necessary to share you public key in order to use public key encryption, the private key should never be shared or stored on remote services even though it is protected with a passphrase.
-National and regional resources
+| National and regional resources
+| 
+| On many national and regional resources e.g. ARCHER, ARCHER2 and the Tier-2 sites it is compulsory to use public keys and these will often be required as part of your application to use the service and added for you. For completeness we now describe how you can add you public key to the remote service:
 
-On many national and regional resources e.g. ARCHER, ARCHER2 and the Tier-2 sites it is compulsory to use public keys and these will often be required as part of your application to use the service and added for you. For completeness we now describe how you can add you public key to the remote service:
 Copy the public part of the key to the remote host
+--------------------------------------------------
 
-When you create the key pair two files will be generated, a private key e.g. id_ed25519 (or id_rsa) and the public key id_ed25519.pub (or id_rsa.pub). Your private key should never be copied to different machines, however, in order to use your key pair you do need to copy the public key to the remote machine.
+When you create the key pair two files will be generated, a private key e.g. ``id_ed25519`` (or id_rsa) and the public key ``id_ed25519.pub`` (or ``id_rsa.pub``). Your private key should never be copied to different machines, however, in order to use your key pair you do need to copy the public key to the remote machine.
 
-Using you normal login password, add the public part of your key pair to the authorized_keys file on the remote host to which you wish to connect. We can use the utility ssh_copy_id to do this:
+Using you normal login password, add the public part of your key pair to the authorized_keys file on the remote host to which you wish to connect. We can use the utility ``ssh_copy_id`` to do this:
 
-ssh_copy_id -i ~/.ssh/id_ed25519.pub [userID]@<hpc-service>
+.. code-block:: text
+  ssh_copy_id -i ~/.ssh/id_ed25519.pub [userID]@<hpc-service>
 
 Now you can test that your key pair is working correctly by attempting to connect to the remote host and run a command. You should be asked for your key pair passphase (which you entered when you created the key pair) rather than your remote machine password.
 
-ssh [userID]@<hpc-service> 'date'
-Enter passphrase for key '/Home/user/.ssh/id_rsa': [Passphrase]
-Wed May  8 10:36:48 BST 2020
+.. code-block:: text
+  ssh [userID]@<hpc-service> 'date'
+  Enter passphrase for key '/Home/user/.ssh/id_rsa': [Passphrase]
+  Wed May  8 10:36:48 BST 2020
 
 We have run date on the remote server to confirm that we have been able to use the key pair, and passphrase to log in.
-What is ssh-copy-id doing?
 
-ssh-copy-id is appending the contents of the public part of the key to the remote file ~/.ssh/authorized_keys.
+| What is ssh-copy-id doing?
+| 
+| ssh-copy-id is appending the contents of the public part of the key to the remote file ~/.ssh/authorized_keys.
+| 
+| You could also copy and paste your public key into the remote ~/.ssh/authorized_keys but using the provided tool makes this easier.
+|
+| *If you do this make sure that you don't replace existing keys that you want to keep.*
 
-You could also copy and paste your public key into the remote ~/.ssh/authorized_keys but using the provided tool makes this easier.
+| Using someone else's key
+| 
+| Should you share someone else's key?
 
-If you do this make sure that you don't replace existing keys that you want to keep.
-Using someone else's key
+| Key permissions
+|
+| ssh has strict requirements on the permissions for private keys. Why would this be?
 
-Should you share someone else's key?
-
-Solution
-Key permissions
-
-ssh has strict requirements on the permissions for private keys. Why would this be?
-
-Solution
 Key pairs for multiple services
+-------------------------------
 
 So far we have generated a single key with a default name for one service. Using strong keys means that the key should secure but what happens if the key is compromised? An intruder can now access all systems on which we use this key. Therefore it is good practice to use a different key for each service you use. In order to do this you need to specify the name of key file:
 
-ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519_service
+.. code-block:: text
+  ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519_service
 
-Before when we connected to the remote machine ssh automatically tried default keys it found in ~/.ssh. We can specify that we wish to use a specific key with:
+Before when we connected to the remote machine ``ssh`` automatically tried default keys it found in ``~/.ssh``. We can specify that we wish to use a specific key with:
 
-ssh -i ~/.ssh/id_ed25519_service [userID]@<hpc-service>
+.. code-block:: text
+  ssh -i ~/.ssh/id_ed25519_service [userID]@<hpc-service>
 
-However we now have an issue that we need to remember and specify the key we want to use for each service and typeout a longer command each time we want to connect to remote machines. We can simplify this by adding the Host, and key file to our ssh config. Edit ~/.ssh/config and add/include:
+However we now have an issue that we need to remember and specify the key we want to use for each service and typeout a longer command each time we want to connect to remote machines. We can simplify this by adding the Host, and key file to our ssh config. Edit ``~/.ssh/config`` and add/include:
 
-Host <hpc-service>
-    IdentityFile ~/.ssh/id_ed25519_service
+.. code-block:: text
+  Host <hpc-service>
+  IdentityFile ~/.ssh/id_ed25519_service
 
 Now when we connect to the service:
 
-ssh [userID]@<hpc-service>
+.. code-block:: text
+  ssh [userID]@<hpc-service>
 
-More features of config
-
-You can also use the ssh config to specify many more features of your connection e.g. if you have different usernames on different systems:
-
-Host service
-  IdentityFile id_ed25519_service
-  User userid_service
+| More features of config
+|
+| You can also use the ssh config to specify many more features of your connection e.g. if you have different usernames on different systems:
+|
+| ``Host service``
+| ``IdentityFile id_ed25519_service``
+| ``User userid_service``
 
 Enabling the SSH Agent
+----------------------
 
 So far we have just replaced the need to enter a password to access a remote host with the need to enter a key pair passphrase. Because of this is may be tempting to leave the passphrase empty when creating your key so that we do not have to enter it every time we access a service which may be many times a day. This is poor security practise and is likely to be in breach of the acceptable use policies covering the services you are accessing.
 
 It is also a completely unnecessary risk as you can enable an SSH Agent on your local system so that you only have to enter the passphrase once and after that you will be able to access the remote system without entering the passphrase.
-Start ssh-agent
 
-Most modern Linux distributions (and macOS) should have ssh-agent running by default. If your system does not then you should find the instructions for enabling it in your distribution using Google. Typically you can check this with:
+| Start ssh-agent
+|
+| Most modern Linux distributions (and macOS) should have ssh-agent running by default. If your system does not then you should find the instructions for enabling it in your distribution using Google. Typically you can check this with:
+|
+| ``echo $SSH_AGENT_PID``
+|
+| If the output is empty then it isn't running. It can be launched with:
+|
+| ``eval \`ssh-agent\```
+| ``Agent pid 123``
+|
+| and now you can confirm it is running with:
+|
+| ``echo $SSH_AGENT_PID``
+| ``123``
 
-echo $SSH_AGENT_PID
-
-If the output is empty then it isn't running. It can be launched with:
-
-eval `ssh-agent
-Agent pid 123
-
-and now you can confirm it is running with:
-
-echo $SSH_AGENT_PID
-123
-
-Agent lifetime
-
-By default ssh-agent will store your key forever, which is typically the lifetime of the shell session. Remember that we are trying to ensure that we operate as securely as possible. If we could be completely confident that our local machine could not be compromised then we would not use passwords or passphrases.
-
-Similarly with the ssh-agent we must consider how long that the passphrase needs to be or should be remembered. If we are in a secure office at work and we will be accessing the service repeatedly throughout the day then we might want the key to be remembered for several hours. If we are doing half an hour's work in a cafe we would probably want to have the keys stored for that length of time. Note that the time is in seconds.
-
-At the end of a session you can remove all stored keys with:
-
-ssh-add -D
+| Agent lifetime
+|
+| By default ssh-agent will store your key forever, which is typically the lifetime of the shell session. Remember that we are trying to ensure that we operate as securely as possible. If we could be completely confident that our local machine could not be compromised then we would not use passwords or passphrases.
+|
+| Similarly with the ssh-agent we must consider how long that the passphrase needs to be or should be remembered. If we are in a secure office at work and we will be accessing the service repeatedly throughout the day then we might want the key to be remembered for several hours. If we are doing half an hour's work in a cafe we would probably want to have the keys stored for that length of time. Note that the time is in seconds.
+|
+| At the end of a session you can remove all stored keys with:
+|
+| ``ssh-add -D``
 
 Adding your key to the agent
+----------------------------
 
 To add the private part of your key pair to the SSH Agent, use the ssh-add command (on your local machine). To add the key for one hour we inculde the flag and parameter -t 3600, you will need to enter your passphrase one more time:
 
-ssh-add -t 3600 ~/.ssh/id_ed25519-service
-Enter passphrase for home/user/.ssh/id_ed25519_service: [Passphrase]
-Identity added: home/user/.ssh/id_ed25519_service (home/user/.ssh/id_ed25519_service)
-Lifetime set to 3600 seconds
+.. code-block:: text
+  ssh-add -t 3600 ~/.ssh/id_ed25519-service
+  Enter passphrase for home/user/.ssh/id_ed25519_service: [Passphrase]
+  Identity added: home/user/.ssh/id_ed25519_service (home/user/.ssh/id_ed25519_service)
+  Lifetime set to 3600 seconds
 
 Now you can test that you can access the remote host without needing to enter your passphrase:
 
-ssh [userID]@<hpc-service> 'date'
-Wed May  8 10:42:56 BST 2020
+.. code-block:: text
+  ssh [userID]@<hpc-service> 'date'
+  Wed May  8 10:42:56 BST 2020
 
 again we have run date on the remote service to confirm that we have been able to use the ssh-agent successfully.
 
-Remember that in the above user will be your username on your local machine and that [userID] is you username on the remote <hpc-service>.
-Moving data
+Remember that in the above ``user`` will be your username on your local machine and that ``[userID]`` is you username on the remote ``<hpc-service>``.
 
-If you use scp, rsync or sftp to transfer files then since these use ssh they will use your ssh config file and stored keys in exactly the same way as running ssh.
-Remote key pairs
+| Moving data
+| 
+| If you use scp, rsync or sftp to transfer files then since these use ssh they will use your ssh config file and stored keys in exactly the same way as running ssh.
 
-You should never store the private key on a shared resource. On some HPC services you may see that a key pair has been created automatically in you remote .ssh folder. This is used by some schedulers to manage communication and should only be used by the system for internal communcations e.g. you logging onto nodes running jobs or interactive sessions and parallel communcations within jobs.
+| Remote key pairs
+|
+| You should never store the private key on a shared resource. On some HPC services you may see that a key pair has been created automatically in you remote .ssh folder. This is used by some schedulers to manage communication and should only be used by the system for internal communcations e.g. you logging onto nodes running jobs or interactive sessions and parallel communcations within jobs.
+|
+| **These keys are not protected by passphrases and should never be used for onward connections from the remote service.**
 
-These keys are not protected by passphrases and should never be used for onward connections from the remote service.
 Key Points:
 
-    breaches of security can result in loss of services, lost data or breaches of sensitive data
-    security of HPC services is a shared responsibilty
-    ssh is a secure protocol for accessing remotes services and transfering data
-    the use of ssh keys restrict access to users with public keys registered on the remote service
-    passphrases must be used to protect private keys
-    Your private keys should never be stored on remote services
-    Appropriate use of ssh config and the ssh-agent can simplify our secure use of these services
-    ssh key pairs may be generated on HPC services for communicating on the resource. These keys are not protected by passphrases and should never be used for onward connections from the remote service.
+- breaches of security can result in loss of services, lost data or breaches of sensitive data
+- security of HPC services is a shared responsibilty
+- ssh is a secure protocol for accessing remotes services and transfering data
+- the use of ssh keys restrict access to users with public keys registered on the remote service
+- passphrases must be used to protect private keys
+- your private keys should never be stored on remote services
+- appropriate use of ssh config and the ssh-agent can simplify our secure use of these services
+- ssh key pairs may be generated on HPC services for communicating on the resource. These keys are not protected by passphrases and should never be used for onward connections from the remote service.
 
