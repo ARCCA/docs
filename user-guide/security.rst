@@ -140,6 +140,7 @@ On systems running older version of ssh you may not be able to use the EdDSA enc
 
   ssh-keygen -o -a 100 -t rsa -b 4096
 
+This will generate an RSA key instead.
 
   | Private keys are private
   |
