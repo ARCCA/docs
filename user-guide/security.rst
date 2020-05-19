@@ -86,9 +86,9 @@ On local, HPC systems you may be able to use your standard institutional credent
 
 When you log into a new service for the first time you will likely be asked to change your password. If you are not, you should change it at first log-in with the command passwd. Once you have logged in or run the command, the password change sequence is:
 
-    Enter your current password:
-    Enter a new strong password
-    Re-enter the same new password.
+  1. Enter your current password:
+  2. Enter a new strong password
+  3. Re-enter the same new password.
 
 There may be a forced password policy to help ensure that you are using a strong password.
 
@@ -288,12 +288,12 @@ Remember that in the above ``user`` will be your username on your local machine 
 
 Key Points:
 
-- breaches of security can result in loss of services, lost data or breaches of sensitive data
-- security of HPC services is a shared responsibilty
-- ssh is a secure protocol for accessing remotes services and transfering data
-- the use of ssh keys restrict access to users with public keys registered on the remote service
-- passphrases must be used to protect private keys
-- your private keys should never be stored on remote services
-- appropriate use of ssh config and the ssh-agent can simplify our secure use of these services
-- ssh key pairs may be generated on HPC services for communicating on the resource. These keys are not protected by passphrases and should never be used for onward connections from the remote service.
+  - breaches of security can result in loss of services, lost data or breaches of sensitive data
+  - security of HPC services is a shared responsibilty
+  - ssh is a secure protocol for accessing remotes services and transfering data
+  - the use of ssh keys restrict access to users with public keys registered on the remote service
+  - passphrases must be used to protect private keys
+  - your private keys should never be stored on remote services
+  - appropriate use of ssh config and the ssh-agent can simplify our secure use of these services
+  - ssh key pairs may be generated on HPC services for communicating on the resource. These keys are not protected by passphrases and should never be used for onward connections from the remote service.
 
